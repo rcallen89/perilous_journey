@@ -53,7 +53,31 @@ class LinkedList
     original_head = @head
     new_head = Node.new(family_name)
     new_head.next_node = original_head
+    @list_size += 1
     @head = new_head
   end
+
+  def insert(position, family_name)
+    if position == 0
+      prepend(family_name)
+    elsif position > @list_size
+      append(family_name)
+    else
+      #Position is similar to an array 0 = head, 1 = head.next_node...etc
+      inserted_family = Node.new(family_name)
+      original_head = @head
+      (position - 1).times do
+        @head = @head.next_node
+      end
+      previous_head = @head
+      pushed_family = previous_head.next_node
+      previous_head.next_node = inserted_family
+      inserted_family.next_node = pushed_family
+      @head = original_head
+      @list_size += 1
+      inserted_family
+    end
+  end
+
 
 end
