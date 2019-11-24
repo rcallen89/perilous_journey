@@ -49,4 +49,11 @@ class LinkedList
     end
   end
 
+  def prepend(family_name)
+    original_head = @head
+    new_head = Node.new(family_name)
+    new_head.next_node = original_head
+    @head = new_head
+  end
+
 end

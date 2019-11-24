@@ -36,7 +36,7 @@ class LinkedListTest < MiniTest::Test
     assert_equal "The Rhodes family, followed by the Hardy family", list.to_string
   end
 
-  def test_third_node_goes_into_head_next
+  def test_third_node_goes_into_head_next_next
     list = LinkedList.new
     list.append("West")
     list.append("Second")
@@ -44,5 +44,19 @@ class LinkedListTest < MiniTest::Test
 
     assert_equal "Third", list.head.next_node.next_node.family_name
     assert_equal 3, list.count
+  end
+
+  def test_new_head
+    list = LinkedList.new
+    list.append("First")
+    list.append("Second")
+    list.append("Third")
+
+    assert_equal "First", list.head.family_name
+    list.prepend('Fourth')
+    require "pry"; binding.pry
+
+    assert_equal "Fourth", list.head.family_name
+    assert_equal "First", list.head.next_node.family_name
   end
 end
