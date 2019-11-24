@@ -102,5 +102,20 @@ class LinkedList
     family_list
   end
 
+  def includes?(name_search)
+    original_head = @head
+    name_found = false
+    @list_size.times do
+      if @head.family_name == name_search
+        name_found = true
+        break
+      else
+        @head = @head.next_node
+      end
+    end
+    @head = original_head
+    name_found
+  end
+
 
 end

@@ -90,4 +90,20 @@ class LinkedListTest < MiniTest::Test
     assert_equal "The Brooks family", list.find(2,1)
     assert_equal "The Lawson family, followed by the Brooks family, followed by the Henderson family", list.find(1, 3)
   end
+
+  def test_if_names_are_included
+    list = LinkedList.new
+    list.append("Brooks")
+    list.append("Henderson")
+    list.prepend("McKinney")
+    list.insert(1, "Lawson")
+
+    assert_equal true, list.includes?("Brooks")
+    assert_equal false, list.includes?("Chapman")
+
+    list.insert(2, "Chapman")
+    require "pry"; binding.pry
+
+    assert_equal true, list.includes?("Chapman")
+  end
 end
