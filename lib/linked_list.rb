@@ -34,10 +34,18 @@ class LinkedList
   end
 
   def to_string
-    if head.next_node == nil
+    if @head.next_node == nil
       "The #{head.family_name} family"
     else
-      "The #{head.family_name} family, followed by the #{head.next_node.family_name} family"
+      head_storage = @head
+      family_list = "The #{@head.family_name} family"
+      while @head.next_node != nil
+        @head = @head.next_node
+         next_family = ", followed by the #{@head.family_name} family"
+        family_list = family_list + next_family
+      end
+      @head = head_storage
+      family_list
     end
   end
 
