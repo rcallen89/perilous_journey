@@ -16,12 +16,13 @@ class LinkedList
       @head = (family_name = Node.new(family_name))
     else
       if @head.next_node == nil
+        @list_size += 1
         @head.next_node = (family_name = Node.new(family_name))
       else
         until @head.next_node == nil
-          @list_size += 1
           @head = @head.next_node
         end
+        @list_size += 1
         @head.next_node = (family_name = Node.new(family_name))
       end
       return @head = head_storage
@@ -33,9 +34,50 @@ class LinkedList
   end
 
   def to_string
-    if list_size == 1
+    if @head.next_node == nil
       "The #{head.family_name} family"
+    else
+      head_storage = @head
+      family_list = "The #{@head.family_name} family"
+      while @head.next_node != nil
+        @head = @head.next_node
+         next_family = ", followed by the #{@head.family_name} family"
+        family_list = family_list + next_family
+      end
+      @head = head_storage
+      family_list
     end
   end
+
+  def prepend(family_name)
+    original_head = @head
+    new_head = Node.new(family_name)
+    new_head.next_node = original_head
+    @list_size += 1
+    @head = new_head
+  end
+
+  def insert(position, family_name)
+    if position == 0
+      prepend(family_name)
+    elsif position > @list_size
+      append(family_name)
+    else
+      #Position is similar to an array 0 = head, 1 = head.next_node...etc
+      inserted_family = Node.new(family_name)
+      original_head = @head
+      (position - 1).times do
+        @head = @head.next_node
+      end
+      previous_head = @head
+      pushed_family = previous_head.next_node
+      previous_head.next_node = inserted_family
+      inserted_family.next_node = pushed_family
+      @head = original_head
+      @list_size += 1
+      inserted_family
+    end
+  end
+
 
 end

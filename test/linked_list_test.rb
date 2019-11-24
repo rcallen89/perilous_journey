@@ -25,4 +25,59 @@ class LinkedListTest < MiniTest::Test
     assert_equal 1, list.count
     assert_equal "The West family", list.to_string
   end
+
+  def test_second_node_goes_into_head_next
+    list = LinkedList.new
+    list.append("Rhodes")
+    list.append("Hardy")
+
+    assert_equal "Hardy", list.head.next_node.family_name
+    assert_equal 2, list.count
+    assert_equal "The Rhodes family, followed by the Hardy family", list.to_string
+  end
+
+  def test_third_node_goes_into_head_next_next
+    list = LinkedList.new
+    list.append("West")
+    list.append("Second")
+    list.append("Third")
+
+    assert_equal "Third", list.head.next_node.next_node.family_name
+    assert_equal 3, list.count
+  end
+
+  def test_new_head
+    list = LinkedList.new
+    list.append("First")
+    list.append("Second")
+    list.append("Third")
+
+    assert_equal "First", list.head.family_name
+    list.prepend('Fourth')
+
+    assert_equal "Fourth", list.head.family_name
+    assert_equal "First", list.head.next_node.family_name
+  end
+
+  def test_add_new_head
+    list = LinkedList.new
+    list.append("Brooks")
+    list.append("Henderson")
+    list.prepend("McKinney")
+
+    assert_equal "McKinney", list.head.family_name
+    assert_equal 3, list.count
+  end
+
+  def test_insert_new_family
+    list = LinkedList.new
+    list.append("Brooks")
+    list.append("Henderson")
+    list.prepend("McKinney")
+    list.insert(1, "Lawson")
+    require "pry"; binding.pry
+
+    assert_equal "Lawson", list.head.next_node.family_name
+    assert_equal 4, list.count
+  end
 end
