@@ -7,7 +7,7 @@ class NodeTest < MiniTest::Test
     node = Node.new("Burke")
 
     assert_instance_of Node, node
-    assert_equal "Burke", node.surname
+    assert_equal "Burke", node.family_name
     assert_nil node.next_node
   end
 end
