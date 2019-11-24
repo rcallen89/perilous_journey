@@ -49,6 +49,7 @@ class LinkedList
     end
   end
 
+
   def prepend(family_name)
     original_head = @head
     new_head = Node.new(family_name)
@@ -77,6 +78,28 @@ class LinkedList
       @list_size += 1
       inserted_family
     end
+  end
+
+  def find(start_position, number_of_positions)
+    if number_of_positions > @list_size
+      number_of_positions = (@list_size - start_position)
+    end
+    if start_position > @list_size
+      start_position = @list_size - 1
+      number_of_positions = (@list_size - start_position)
+    end
+    original_head = @head
+    start_position.times do
+      @head = @head.next_node
+    end
+    family_list = "The #{@head.family_name} family"
+    (number_of_positions - 1).times do
+      @head = @head.next_node
+       next_family = ", followed by the #{@head.family_name} family"
+      family_list = family_list + next_family
+    end
+    @head = original_head
+    family_list
   end
 
 
