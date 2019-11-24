@@ -25,4 +25,24 @@ class LinkedListTest < MiniTest::Test
     assert_equal 1, list.count
     assert_equal "The West family", list.to_string
   end
+
+  def test_second_node_goes_into_head_next
+    list = LinkedList.new
+    list.append("Rhodes")
+    list.append("Hardy")
+
+    assert_equal "Hardy", list.head.next_node.family_name
+    assert_equal 2, list.count
+    assert_equal "The Rhodes family, followed by the Hardy family", list.to_string
+  end
+
+  def test_third_node_goes_into_head_next
+    list = LinkedList.new
+    list.append("West")
+    list.append("Second")
+    list.append("Third")
+
+    assert_equal "Third", list.head.next_node.next_node.family_name
+    assert_equal 3, list.count
+  end
 end

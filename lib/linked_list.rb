@@ -16,12 +16,13 @@ class LinkedList
       @head = (family_name = Node.new(family_name))
     else
       if @head.next_node == nil
+        @list_size += 1
         @head.next_node = (family_name = Node.new(family_name))
       else
         until @head.next_node == nil
-          @list_size += 1
           @head = @head.next_node
         end
+        @list_size += 1
         @head.next_node = (family_name = Node.new(family_name))
       end
       return @head = head_storage
@@ -33,8 +34,10 @@ class LinkedList
   end
 
   def to_string
-    if list_size == 1
+    if head.next_node == nil
       "The #{head.family_name} family"
+    else
+      "The #{head.family_name} family, followed by the #{head.next_node.family_name} family"
     end
   end
 
