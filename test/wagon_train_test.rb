@@ -1,5 +1,6 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
+# require 'minitest/autorun'
+# require 'minitest/pride'
 require './lib/wagon_train'
 
 class WagonTrainTest < MiniTest::Test
