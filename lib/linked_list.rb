@@ -3,27 +3,29 @@ require './lib/node'
 
 class LinkedList
   attr_reader :head, :list_size
+  attr_accessor :supply
 
   def initialize
     @head = nil
     @list_size = 0
+    @supply = {}
   end
 
-  def append(family_name)
+  def append(family_name, supplies_at_create)
     head_storage = @head
     if @head == nil
       @list_size += 1
-      @head = (family_name = Node.new(family_name))
+      @head = (family_name = Node.new(family_name, supplies_at_create))
     else
       if @head.next_node == nil
         @list_size += 1
-        @head.next_node = (family_name = Node.new(family_name))
+        @head.next_node = (family_name = Node.new(family_name, supplies_at_create))
       else
         until @head.next_node == nil
           @head = @head.next_node
         end
         @list_size += 1
-        @head.next_node = (family_name = Node.new(family_name))
+        @head.next_node = (family_name = Node.new(family_name, supplies_at_create))
       end
       return @head = head_storage
     end
@@ -50,22 +52,22 @@ class LinkedList
   end
 
 
-  def prepend(family_name)
+  def prepend(family_name, supplies_at_create)
     original_head = @head
-    new_head = Node.new(family_name)
+    new_head = Node.new(family_name, supplies_at_create)
     new_head.next_node = original_head
     @list_size += 1
     @head = new_head
   end
 
-  def insert(position, family_name)
+  def insert(position, family_name, supplies_at_create)
     if position == 0
-      prepend(family_name)
+      prepend(family_name, supplies_at_create)
     elsif position > @list_size
-      append(family_name)
+      append(family_name, supplies_at_create)
     else
       #Position is similar to an array 0 = head, 1 = head.next_node...etc
-      inserted_family = Node.new(family_name)
+      inserted_family = Node.new(family_name, supplies_at_create)
       original_head = @head
       (position - 1).times do
         @head = @head.next_node
@@ -132,6 +134,16 @@ class LinkedList
     @head = original_head
     @list_size -= 1
     "The #{deleted_family.family_name} died of dysentery"
+  end
+
+  def supplies
+    original_head = @head
+    @list_size.times do
+      @supply.merge!(@head.supply){|key, oldval , newval | newval + oldval}
+      @head = @head.next_node
+    end
+    @head = original_head
+    @supply
   end
 
 end
