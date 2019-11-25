@@ -102,8 +102,19 @@ class LinkedListTest < MiniTest::Test
     assert_equal false, list.includes?("Chapman")
 
     list.insert(2, "Chapman")
-    require "pry"; binding.pry
 
     assert_equal true, list.includes?("Chapman")
+  end
+
+  def test_pop_deletes_last_element
+    list = LinkedList.new
+    list.append("Brooks")
+    list.append("Henderson")
+    list.prepend("McKinney")
+    list.append("Chapman")
+    require "pry"; binding.pry
+
+    assert_equal "The Chapman died of dysentery", list.pop
+    assert_equal 3, list.list_size
   end
 end

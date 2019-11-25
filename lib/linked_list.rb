@@ -117,5 +117,21 @@ class LinkedList
     name_found
   end
 
+  def pop
+    original_head = @head
+    deleted_family = ""
+    if @head.next_node.next_node == nil
+      deleted_family = @head.next_node
+    else
+      until @head.next_node.next_node == nil
+        deleted_family = @head.next_node.next_node
+        @head = @head.next_node
+      end
+    end
+    @head.next_node = nil
+    @head = original_head
+    @list_size -= 1
+    "The #{deleted_family.family_name} died of dysentery"
+  end
 
 end
