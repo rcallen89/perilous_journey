@@ -75,9 +75,46 @@ class LinkedListTest < MiniTest::Test
     list.append("Henderson")
     list.prepend("McKinney")
     list.insert(1, "Lawson")
-    require "pry"; binding.pry
 
     assert_equal "Lawson", list.head.next_node.family_name
     assert_equal 4, list.count
+  end
+
+  def test_find_nodes_by_position_and_range
+    list = LinkedList.new
+    list.append("Brooks")
+    list.append("Henderson")
+    list.prepend("McKinney")
+    list.insert(1, "Lawson")
+
+    assert_equal "The Brooks family", list.find(2,1)
+    assert_equal "The Lawson family, followed by the Brooks family, followed by the Henderson family", list.find(1, 3)
+  end
+
+  def test_if_names_are_included
+    list = LinkedList.new
+    list.append("Brooks")
+    list.append("Henderson")
+    list.prepend("McKinney")
+    list.insert(1, "Lawson")
+
+    assert_equal true, list.includes?("Brooks")
+    assert_equal false, list.includes?("Chapman")
+
+    list.insert(2, "Chapman")
+
+    assert_equal true, list.includes?("Chapman")
+  end
+
+  def test_pop_deletes_last_element
+    list = LinkedList.new
+    list.append("Brooks")
+    list.append("Henderson")
+    list.prepend("McKinney")
+    list.append("Chapman")
+    require "pry"; binding.pry
+
+    assert_equal "The Chapman died of dysentery", list.pop
+    assert_equal 3, list.list_size
   end
 end

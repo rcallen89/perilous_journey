@@ -49,6 +49,7 @@ class LinkedList
     end
   end
 
+
   def prepend(family_name)
     original_head = @head
     new_head = Node.new(family_name)
@@ -79,5 +80,58 @@ class LinkedList
     end
   end
 
+  def find(start_position, number_of_positions)
+    if number_of_positions > @list_size
+      number_of_positions = (@list_size - start_position)
+    end
+    if start_position > @list_size
+      start_position = @list_size - 1
+      number_of_positions = (@list_size - start_position)
+    end
+    original_head = @head
+    start_position.times do
+      @head = @head.next_node
+    end
+    family_list = "The #{@head.family_name} family"
+    (number_of_positions - 1).times do
+      @head = @head.next_node
+       next_family = ", followed by the #{@head.family_name} family"
+      family_list = family_list + next_family
+    end
+    @head = original_head
+    family_list
+  end
+
+  def includes?(name_search)
+    original_head = @head
+    name_found = false
+    @list_size.times do
+      if @head.family_name == name_search
+        name_found = true
+        break
+      else
+        @head = @head.next_node
+      end
+    end
+    @head = original_head
+    name_found
+  end
+
+  def pop
+    original_head = @head
+    deleted_family = ""
+    if @head.next_node.next_node == nil
+      deleted_family = @head.next_node
+    else
+      until @head.next_node.next_node == nil
+        deleted_family = @head.next_node.next_node
+        @head = @head.next_node
+      end
+    end
+    @head.next_node = nil
+    @head = original_head
+    @list_size -= 1
+    "The #{deleted_family.family_name} died of dysentery"
+  end
 
 end
